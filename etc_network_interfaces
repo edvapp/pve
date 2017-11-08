@@ -1,0 +1,24 @@
+auto lo
+iface lo inet loopback
+
+#iface enp3s0 inet manual
+#iface enp6s0 inet manual
+
+auto bond0
+iface bond0 inet manual
+<------>slaves enp3s0 enp6s0
+<------>bond mode 0
+<------>bond-miimon 100
+<------>bond-updelay 200
+<------>bond-downdelay 200
+<------>bond-lacp-rate 0
+
+auto vmbr0
+iface vmbr0 inet static
+<------>address 10.0.0.71
+<------>netmask 255.0.0.0
+<------>gateway 10.0.0.254
+<------>bridge_ports bond0
+<------>bridge_stp off
+<------>bridge_fd 0
+
