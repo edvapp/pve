@@ -1,0 +1,37 @@
+FROM:
+
+https://forum.proxmox.com/threads/is-it-possible-to-run-a-nfs-server-within-a-lxc.24403/
+
+
+If you don't wish compromise security you can make a new apparmor profile and apply it to the container you want to host NFS shares on.
+
+Create a new file "/etc/apparmor.d/lxc/lxc-default-with-nfsd" and paste in the following;
+
+Code:
+
+# Do not load this file.  Rather, load /etc/apparmor.d/lxc-containers, which
+# will source all profiles under /etc/apparmor.d/lxc
+
+profile lxc-container-default-with-nfsd flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/lxc/container-base>
+
+  # the container may never be allowed to mount devpts.  If it does, it
+  # will remount the host's devpts.  We could allow it to do it with
+  # the newinstance option (but, right now, we don't).
+  deny mount fstype=devpts,
+  mount fstype=nfsd,
+  mount fstype=rpc_pipefs,
+  mount fstype=cgroup -> /sys/fs/cgroup/**,
+}
+
+Then run this command to reload the profiles
+Code:
+
+apparmor_parser -r /etc/apparmor.d/lxc-containers
+
+Finally at this line to your /etc/pve/lxc/CTID.conf
+Code:
+
+lxc.aa_profile = lxc-default-with-nfsd
+
+ 
