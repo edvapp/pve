@@ -32,6 +32,6 @@ apparmor_parser -r /etc/apparmor.d/lxc-containers
 Finally at this line to your /etc/pve/lxc/CTID.conf
 Code:
 
-lxc.aa_profile = lxc-default-with-nfsd
+lxc.aa_profile: lxc-default-with-nfsd
 
  
