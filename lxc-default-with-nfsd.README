@@ -34,9 +34,9 @@ Code:
 
 For Proxmox until 5.0-19:
 
-lxc.aa_profile: lxc-default-with-nfsd
+lxc.aa_profile: lxc-container-default-with-nfsd
 
-For Proxmox from 5.2-2 or earlier:
+For Proxmox from 5.2-2 or later:
 
-lxc.apparmor.profile: lxc-default-with-nfsd
+lxc.apparmor.profile: lxc-container-default-with-nfsd
  
