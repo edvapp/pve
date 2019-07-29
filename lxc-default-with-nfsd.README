@@ -2,6 +2,11 @@ FROM:
 
 https://forum.proxmox.com/threads/is-it-possible-to-run-a-nfs-server-within-a-lxc.24403/
 
+source probably
+https://gist.github.com/rwenz3l/0907385f6a6690c34eb8e36fa73d8405
+allready scripted but not all needed
+
+The container has to be provilegedet!
 
 If you don't wish compromise security you can make a new apparmor profile and apply it to the container you want to host NFS shares on.
 
