@@ -4,14 +4,27 @@ iface lo inet loopback
 #iface enp3s0 inet manual
 #iface enp6s0 inet manual
 
+
+# Information from:
+##
+## https://help.ubuntu.com/community/UbuntuBonding
+##
+## https://www.kernel.org/doc/Documentation/networking/bonding.txt
+##
+## check status with:
+## >> ethtool bond0
+## >> cat /proc/net/bonding/bond0
+
 auto bond0
 iface bond0 inet manual
 <------>slaves enp3s0 enp6s0
-<------>bond mode 0
+<------>bond-mode 802.3ad
+<------>bond-xmit_hash_policy layer2+3
+<------>bond-lacp-rate fast
 <------>bond-miimon 100
 <------>bond-updelay 200
 <------>bond-downdelay 200
-<------>bond-lacp-rate 0
+
 
 auto vmbr0
 iface vmbr0 inet static
